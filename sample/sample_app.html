@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>GAT Replay Engine - Sample</title>
+
+    <!--[if lt IE 9]>
+      <script src="../lib/excanvas.js"></script>
+    <![endif]-->
+
+    <script src="../libs/fabric.min.js"></script>
+    <script src="../src/gat-replay-engine.js"></script>
+    <script src="../src/gat-replay-truco.js"></script>
+</head>
+
+<body>
+    <h1>GAT Replay Engine - Sample</h1>
+
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <button type="button" onclick="replay.play();">&#9654;</button>
+    <button type="button" onclick="replay.pause();">&#9646;&#9646;</button>
+    <button type="button" onclick="replay.stop();">&#9724;</button>
+
+    <script id="main">
+        var canvas = new fabric.Canvas('canvas');
+        var replay = new GATReplay();
+        var replay = new Truco();
+        replay.start();
+    </script>
+
+</body>
+
+</html>
