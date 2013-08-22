@@ -94,8 +94,8 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
       fontSize: 50,
       fontWeight: "bold",
       fill: "#fff",
-      strokeStyle: '#000',
-      strokeWidth: 5,
+      stroke: '#000',
+      strokeWidth: 2,
       opacity: 0,
       textShadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
     });
@@ -147,7 +147,7 @@ var Card = fabric.util.createClass(fabric.Group, {
       symbol = this.SYMBOLS[symbol];
     }
     var cardFont = "Comic Sans";
-    var external = new fabric.Rect({ width: 80, height: 120, rx: 10, ry: 10, fill: "#fff" });
+    var external = new fabric.Rect({ width: 80, height: 120, rx: 10, ry: 10, fill: "#fff", stroke: '#bbb', strokeWidth: 1 });
     var internal = new fabric.Rect({ width: 50, height: 90, rx: 10, ry: 10, fill: "#ccc" });
     internal.setGradient('fill', {
       x1: 0,
@@ -160,10 +160,10 @@ var Card = fabric.util.createClass(fabric.Group, {
       }
     });
 
-    var topSuit = new fabric.Text(suit, { fill: textColor, top: -43, left: -33, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
-    var bottomSuit = new fabric.Text(suit, { fill: textColor, top: 43, left: 33, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
-    var topValue = new fabric.Text(symbol, { fill: textColor, top: -53, left: -33, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
-    var bottomValue = new fabric.Text(symbol, { fill: textColor, top: 53, left: 33, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var topSuit = new fabric.Text(suit, { fill: textColor, top: -42, left: -32, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var bottomSuit = new fabric.Text(suit, { fill: textColor, top: 42, left: 32, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var topValue = new fabric.Text(symbol, { fill: textColor, top: -52, left: -32, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var bottomValue = new fabric.Text(symbol, { fill: textColor, top: 52, left: 32, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
 
     this.callSuper("initialize", [external, internal, topSuit, topValue, bottomSuit, bottomValue], options);
   },
