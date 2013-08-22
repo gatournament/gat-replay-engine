@@ -41,39 +41,38 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
   play: function() {
     if (this._execution != null) return;
     var that = this;
-    this._execution = setInterval(function() {
-      var command = that.nextCommand();
-      if (command != null) {
-        that._applyCommand(command);
-        that._currentCommand += 1;
-      } else {
-        that.pause();
-        that._end();
-        that.stop();
-      }
-    }, this._timeBetweenCommands);
+    function processCommand() {
+        var command = that.nextCommand();
+        if (command != null) {
+          that._applyCommand(command);
+          that._currentCommand += 1;
+          that._execution = setTimeout(processCommand, that._timeBetweenCommands);
+        } else {
+          that.pause();
+          that._end();
+          that.stop();
+        }
+    }
+    this._execution = setTimeout(processCommand, this._timeBetweenCommands);
   },
 
   pause: function() {
     if (this._execution != null) {
-      clearInterval(this._execution);
+      clearTimeout(this._execution);
       this._execution = null;
     }
   },
 
   stop: function() {
-    if (this._execution != null) {
-      clearInterval(this._execution);
-      this._execution = null;
-    }
+    this.pause();
     this._currentCommand = 0;
   },
 
-  increaseVelocity: function() {
+  increaseSpeed: function() {
     this._timeBetweenCommands = Math.min(this._timeBetweenCommands - 100, 100);
   },
 
-  decreaseVelocity: function() {
+  decreaseSpeed: function() {
     this._timeBetweenCommands = Math.max(this._timeBetweenCommands + 100, 3000);
   },
 
