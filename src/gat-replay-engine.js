@@ -11,31 +11,19 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
     options || (options = { });
     this.callSuper("initialize", options.panels || [], options);
     this.commands = options.commands || [];
+    // a = JSON.parse(a);
+    // a = JSON.stringify(a);
     this._timeBetweenCommands = 1000; // in ms
     this._currentCommand = 0;
     this._execution = null;
   },
 
   nextCommand: function() {
-    if (this.commands != undefined && this.commands != null && this.commands != "" && this._currentCommand < this.commands.length) {
-      var command = this.commands[this._currentCommand];
-      return this.parseCommand(command);
+    if (this.commands != undefined && this.commands != null && this._currentCommand < this.commands.length) {
+      return this.commands[this._currentCommand];
     } else {
       return null;
     }
-  },
-
-  parseCommand: function(command) {
-    // console.debug(command);
-    command = command.trim().replace(/\s/g, "");
-    command = command.replace(")", "");
-    tokens = command.split("\(");
-    var cmd = tokens[0];
-    var args = [];
-    if (tokens[1] != undefined) {
-        args = tokens[1].split(",");
-    }
-    return { name: cmd, args: args };
   },
 
   play: function() {
@@ -49,7 +37,6 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
           that._execution = setTimeout(processCommand, that._timeBetweenCommands);
         } else {
           that.pause();
-          that._end();
           that.stop();
         }
     }
@@ -76,15 +63,10 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
     this._timeBetweenCommands = Math.max(this._timeBetweenCommands + 100, 3000);
   },
 
-  start: function() {
-  },
-
   _applyCommand: function(command) {
+    // console.debug(command);
     console.debug(command.name);
     console.debug(command.args);
-  },
-
-  _end: function() {
   },
 
   addGameMessage: function(msg) {
@@ -178,6 +160,8 @@ var Card = fabric.util.createClass(fabric.Group, {
       suit = this.SUITS[suit];
     }
     var symbol = options.symbol.toString();
+    this.suit = suit;
+    this.symbol = symbol;
     if (symbol in this.SYMBOLS) {
       symbol = this.SYMBOLS[symbol];
     }

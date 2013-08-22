@@ -27,21 +27,33 @@
 
     <script id="main">
         var canvas = new fabric.StaticCanvas('canvas', { backgroundColor: "rgba(1, 1, 1, 1)"});
-        var commands = " \n\
-Truco() \n\
-AcceptTruco() \n\
-Upcard(3-3) \n\
-Truco() \n\
-AcceptTruco() \n\
-Upcard(7-3) \n\
-        ".trim().split('\n');
-
+        var commands = '[  \
+        {"name":"start_game", "args":{"p1":"Player1", "p2":"Player2"}}, \
+        {"name":"start_round", "args":{"p1":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "p2":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "center_card":{"suit":2, "symbol":1}  }}, \
+        {"player":"p1","name":"upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+        {"player":"p2","name":"upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+        {"player":"p1","name":"upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+        {"player":"p2","name":"upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+        {"player":"p1","name":"upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+        {"player":"p2","name":"upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+        {"name":"end_round", "args":{"winner":"p1", "loser":"p2"}}, \
+        {"name":"start_round", "args":{"p1":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "p2":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "center_card":{"suit":2, "symbol":1} }}, \
+        {"player":"p1","name":"truco"}, \
+        {"player":"p2","name":"accept"}, \
+        {"player":"p1","name":"upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+        {"player":"p2","name":"truco"}, \
+        {"player":"p1","name":"accept"}, \
+        {"player":"p2","name":"upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+        {"player":"p1","name":"truco"}, \
+        {"player":"p2","name":"reject"}, \
+        {"name":"end_round", "args":{"winner":"p1", "loser":"p2"}}, \
+        {"name":"end_game", "args":{"winner":"p1", "loser":"p2"}}]';
+        commands = JSON.parse(commands);
         var replay = new GATReplay({ commands: commands });
         var replay = new Truco({ commands: commands });
         canvas.add(replay);
-        replay.addTempMessage('Truco');
+        replay.addGameMessage('Truco');
         replay.center();
-        replay.start();
         replay.play();
     </script>
 
