@@ -87,9 +87,8 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
   _end: function() {
   },
 
-  addTempMessage: function(msg, time) {
-    time = typeof time !== "undefined" ? time : 1000;
-    var text = new fabric.Text(msg, {
+  addGameMessage: function(msg) {
+    var options = {
       fontFamily: "Comic Sans",
       fontSize: 50,
       fontWeight: "bold",
@@ -98,19 +97,55 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
       strokeWidth: 2,
       opacity: 0,
       textShadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
-    });
-    this.add(text);
+    }
+    this.addTempMessage(msg, options);
+  },
+
+  addPlayerMessage: function(msg, left, top) {
+    var options = {
+      left: left,
+      top: top,
+      fontFamily: "Comic Sans",
+      fontSize: 20,
+      fontStyle: "italic",
+      fill: "#000",
+      textShadow: 'rgba(0,0,0,0.3) 1px 1px 1px',
+      padding: 10,
+    };
+    var backgroundOptions = {
+      left: left,
+      top: top,
+      width: 200,
+      height: 40,
+      fill: "#fff",
+      backgroundColor: "#fff",
+      rx: 10,
+      ry: 10,
+      stroke: '#bbb',
+      strokeWidth: 1,
+    };
+    this.addTempMessage(msg, options, backgroundOptions);
+  },
+
+  addTempMessage: function(msg, options, backgroundOptions) {
+    options || (options = { });
+    backgroundOptions || (backgroundOptions = { });
+    var text = new fabric.Text(msg, options);
+    var background = new fabric.Rect(backgroundOptions);
+    var group = new fabric.Group([background, text]);
+    this.add(group);
     canvas.renderAll();
     var that = this;
-    text.animate("opacity", 1, {
+    var time = this._timeBetweenCommands - 100;
+    group.animate("opacity", 1, {
       duration: time/2,
       onChange: canvas.renderAll.bind(canvas),
       onComplete: function() {
-        text.animate("opacity", 0, {
+        group.animate("opacity", 0, {
           duration: time/2,
           onChange: canvas.renderAll.bind(canvas),
           onComplete: function() {
-            that.remove(text);
+            that.remove(group);
             canvas.renderAll();
           },
         });

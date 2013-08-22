@@ -31,10 +31,13 @@ var Truco = fabric.util.createClass(GATReplay, {
             this._upcard('player1', suit, symbol);
             break;
         case "Truco":
+            this.addPlayerMessage("Truco!", this.player1.left, this.player1.top);
             break;
         case "AcceptTruco":
+            this.addPlayerMessage("Truco accepted!", this.player1.left, this.player1.top);
             break;
         case "RejectTruco":
+            this.addPlayerMessage("I do not accept the Truco!", this.player1.left, this.player1.top);
             break;
     }
   },
