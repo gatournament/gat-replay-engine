@@ -7,10 +7,13 @@ if (!String.prototype.trim) {
 
 
 var GATReplay = fabric.util.createClass(fabric.Group, {
+  type: "gatreplay",
+
   initialize: function(options) {
     options || (options = { });
     this.callSuper("initialize", options.panels || [], options);
     this.commands = options.commands || [];
+    this.players = {"p1": null, "p2": null};
     // a = JSON.parse(a);
     // a = JSON.stringify(a);
     this._timeBetweenCommands = 1000; // in ms
@@ -67,9 +70,53 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
     // console.debug(command);
     console.debug(command.name);
     console.debug(command.args);
+    switch(command.name) {
+      case "start_game":
+        this._startGame(command);
+        break;
+      case "start_round":
+        this._startRound(command);
+        break;
+      case "end_round":
+        this._endRound(command);
+        break;
+      case "end_game":
+        this._endGame(command);
+        break;
+      default:
+        if (this.type === "gatreplay") {
+          var player = this.players[command.player];
+          if (player) {
+            this._addPlayerMessage(command.name, player.left, player.top);
+          }
+        }
+        this._applyCustomCommand(command);
+        break;
+    }
   },
 
-  addGameMessage: function(msg) {
+  _applyCustomCommand: function(command) {
+    var player1 = this.players["p1"];
+    var player2 = this.players["p2"];
+  },
+
+  _startGame: function(command) {
+    this._addGameMessage(this.type);
+  },
+
+  _startRound: function(command) {
+    this._addGameMessage('new round');
+  },
+
+  _endRound: function(command) {
+
+  },
+
+  _endGame: function(command) {
+    this._addGameMessage('Winner: Loser: ');
+  },
+
+  _addGameMessage: function(msg) {
     var options = {
       fontFamily: "Comic Sans",
       fontSize: 50,
@@ -80,10 +127,10 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
       opacity: 0,
       textShadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
     }
-    this.addTempMessage(msg, options);
+    this._addTempMessage(msg, options);
   },
 
-  addPlayerMessage: function(msg, left, top) {
+  _addPlayerMessage: function(msg, left, top) {
     var options = {
       left: left,
       top: top,
@@ -106,10 +153,10 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
       stroke: '#bbb',
       strokeWidth: 1,
     };
-    this.addTempMessage(msg, options, backgroundOptions);
+    this._addTempMessage(msg, options, backgroundOptions);
   },
 
-  addTempMessage: function(msg, options, backgroundOptions) {
+  _addTempMessage: function(msg, options, backgroundOptions) {
     options || (options = { });
     backgroundOptions || (backgroundOptions = { });
     var text = new fabric.Text(msg, options);
@@ -201,6 +248,10 @@ var Deck = fabric.util.createClass(fabric.Group, {
     }
   },
 
+  getNextOffset: function() {
+    return this.size() * this.get("cardOffset");
+  },
+
   getCards: function() {
     return this.getObjects();
   },
@@ -235,8 +286,12 @@ var Deck = fabric.util.createClass(fabric.Group, {
     return card;
   },
 
-  getNextOffset: function() {
-    return this.size() * this.get("cardOffset");
+  removeAll: function() {
+    var cards = this.getCards();
+    for (var i in cards) {
+      this.removeCard(cards[i]);
+    }
+    canvas.renderAll();
   },
 
   moveCard: function(card, deck) {
