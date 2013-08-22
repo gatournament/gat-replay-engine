@@ -17,16 +17,29 @@
 <body>
     <h1>GAT Replay Engine - Sample</h1>
 
-    <canvas id="canvas" width="640" height="480"></canvas>
+    <canvas id="canvas" width="640" height="480" style="border:1px solid #ccc"></canvas>
+
     <button type="button" onclick="replay.play();">&#9654;</button>
     <button type="button" onclick="replay.pause();">&#9646;&#9646;</button>
     <button type="button" onclick="replay.stop();">&#9724;</button>
 
     <script id="main">
-        var canvas = new fabric.Canvas('canvas');
-        var replay = new GATReplay();
-        var replay = new Truco();
+        var canvas = new fabric.StaticCanvas('canvas', { backgroundColor: "rgba(1, 1, 1, 1)"});
+        var commands = " \n\
+Truco() \n\
+AcceptTruco() \n\
+Upcard(3-3) \n\
+Truco() \n\
+AcceptTruco() \n\
+Upcard(7-3) \n\
+        ".trim().split('\n');
+
+        var replay = new GATReplay({ commands: commands });
+        var replay = new Truco({ commands: commands });
+        canvas.add(replay);
+        replay.center();
         replay.start();
+        replay.play();
     </script>
 
 </body>
