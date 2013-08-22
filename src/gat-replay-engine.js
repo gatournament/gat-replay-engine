@@ -1,15 +1,15 @@
 if (!String.prototype.trim) {
-  String.prototype.trim=function(){ return this.replace(/^\s+|\s+$/g, ''); };
-  String.prototype.ltrim=function(){ return this.replace(/^\s+/,''); };
-  String.prototype.rtrim=function(){ return this.replace(/\s+$/,''); };
-  String.prototype.fulltrim=function(){ return this.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' '); };
+  String.prototype.trim=function(){ return this.replace(/^\s+|\s+$/g, ""); };
+  String.prototype.ltrim=function(){ return this.replace(/^\s+/,""); };
+  String.prototype.rtrim=function(){ return this.replace(/\s+$/,""); };
+  String.prototype.fulltrim=function(){ return this.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,"").replace(/\s+/g," "); };
 }
 
 
 var GATReplay = fabric.util.createClass(fabric.Group, {
   initialize: function(options) {
     options || (options = { });
-    this.callSuper('initialize', options.panels || [], options);
+    this.callSuper("initialize", options.panels || [], options);
     this.commands = options.commands || [];
     this._timeBetweenCommands = 1000; // in ms
     this._currentCommand = 0;
@@ -27,13 +27,13 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
 
   parseCommand: function(command) {
     // console.debug(command);
-    command = command.trim().replace(/\s/g, '');
-    command = command.replace(')', '');
-    tokens = command.split('\(');
+    command = command.trim().replace(/\s/g, "");
+    command = command.replace(")", "");
+    tokens = command.split("\(");
     var cmd = tokens[0];
     var args = [];
     if (tokens[1] != undefined) {
-        args = tokens[1].split(',');
+        args = tokens[1].split(",");
     }
     return { name: cmd, args: args };
   },
@@ -150,19 +150,20 @@ var Card = fabric.util.createClass(fabric.Group, {
     var external = new fabric.Rect({ width: 80, height: 120, rx: 10, ry: 10, fill: "#fff" });
     var internal = new fabric.Rect({ width: 50, height: 90, rx: 10, ry: 10, fill: "#ccc" });
 
-    var topSuit = new fabric.Text(suit, { fill: textColor, top: -43, left: -33, fontSize: 10, fontWeight: 'bold', fontFamily: cardFont });
-    var bottomSuit = new fabric.Text(suit, { fill: textColor, top: 43, left: 33, angle: 180, fontSize: 10, fontWeight: 'bold', fontFamily: cardFont });
-    var topValue = new fabric.Text(symbol, { fill: textColor, top: -53, left: -33, fontSize: 10, fontWeight: 'bold', fontFamily: cardFont });
-    var bottomValue = new fabric.Text(symbol, { fill: textColor, top: 53, left: 33, angle: 180, fontSize: 10, fontWeight: 'bold', fontFamily: cardFont });
+    var topSuit = new fabric.Text(suit, { fill: textColor, top: -43, left: -33, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var bottomSuit = new fabric.Text(suit, { fill: textColor, top: 43, left: 33, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var topValue = new fabric.Text(symbol, { fill: textColor, top: -53, left: -33, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var bottomValue = new fabric.Text(symbol, { fill: textColor, top: 53, left: 33, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
 
-    this.callSuper('initialize', [external, internal, topSuit, topValue, bottomSuit, bottomValue], options);
+    this.callSuper("initialize", [external, internal, topSuit, topValue, bottomSuit, bottomValue], options);
   },
 });
+
 
 var Deck = fabric.util.createClass(fabric.Group, {
   initialize: function(options) {
     options || (options = { });
-    this.callSuper('initialize', [], options);
+    this.callSuper("initialize", [], options);
     this.cardOffset = options.cardOffset || 18;
     var cards = options.cards || [];
     for (var i in cards) {
@@ -177,8 +178,8 @@ var Deck = fabric.util.createClass(fabric.Group, {
 
   addCard: function(card) {
     var i = this.size();
-    card.set('left', (i * this.get('cardOffset')));
-    card.set('angle', (i * 2));
+    card.set("left", (i * this.get("cardOffset")));
+    card.set("angle", (i * 2));
     this.add(card);
   },
 
@@ -190,11 +191,11 @@ var Deck = fabric.util.createClass(fabric.Group, {
   moveCard: function(card, deck, parent) {
     this.removeCard(card);
     parent.add(card);
-    card.set('top', this.getTop());
-    card.animate('angle', 360, {
+    card.set("top", this.getTop());
+    card.animate("angle", 360, {
       duration: 500,
     });
-    card.animate('top', deck.getTop(), {
+    card.animate("top", deck.getTop(), {
       duration: 500,
       onChange: canvas.renderAll.bind(canvas),
       onComplete: function() {
