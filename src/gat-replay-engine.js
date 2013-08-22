@@ -97,7 +97,7 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
     var backgroundOptions = {
       left: left,
       top: top,
-      width: 200,
+      width: 250,
       height: 40,
       fill: "#fff",
       backgroundColor: "#fff",
@@ -203,6 +203,24 @@ var Deck = fabric.util.createClass(fabric.Group, {
 
   getCards: function() {
     return this.getObjects();
+  },
+
+  getCard: function(suit, symbol) {
+    var cards = this.getCards();
+    for (var i in cards) {
+      var card = cards[i];
+      if (card.suit == suit && card.symbol == symbol) {
+        return card;
+      }
+    }
+    return null;
+  },
+
+  addCards: function(cards) {
+    for (var i in cards) {
+      var card = cards[i];
+      this.addCard(new Card({suit: card.suit, symbol: card.symbol}));
+    }
   },
 
   addCard: function(card) {
