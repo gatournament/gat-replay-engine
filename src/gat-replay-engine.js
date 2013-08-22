@@ -149,6 +149,16 @@ var Card = fabric.util.createClass(fabric.Group, {
     var cardFont = "Comic Sans";
     var external = new fabric.Rect({ width: 80, height: 120, rx: 10, ry: 10, fill: "#fff" });
     var internal = new fabric.Rect({ width: 50, height: 90, rx: 10, ry: 10, fill: "#ccc" });
+    internal.setGradient('fill', {
+      x1: 0,
+      y1: 0,
+      x2: 0,
+      y2: internal.height,
+      colorStops: {
+        0: '#ddd',
+        1: '#eee'
+      }
+    });
 
     var topSuit = new fabric.Text(suit, { fill: textColor, top: -43, left: -33, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
     var bottomSuit = new fabric.Text(suit, { fill: textColor, top: 43, left: 33, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
