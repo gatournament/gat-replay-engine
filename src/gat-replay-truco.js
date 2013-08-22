@@ -44,7 +44,7 @@ var Truco = fabric.util.createClass(GATReplay, {
 
   _upcard: function(player, suit, symbol) {
     var card = this.player1.getCards()[0];
-    this.player1.moveCard(card, this.table, this);
+    this.player1.moveCard(card, this.table);
   },
 
   _end: function() {

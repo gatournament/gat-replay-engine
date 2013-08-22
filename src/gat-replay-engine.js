@@ -233,7 +233,12 @@ var Deck = fabric.util.createClass(fabric.Group, {
     return card;
   },
 
-  moveCard: function(card, deck, parent) {
+  getNextOffset: function() {
+    return this.size() * this.get("cardOffset");
+  },
+
+  moveCard: function(card, deck) {
+    var parent = this.group;
     this.removeCard(card);
     parent.add(card);
     card.set("top", this.getTop());
