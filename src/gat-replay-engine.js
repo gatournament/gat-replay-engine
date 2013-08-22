@@ -86,7 +86,39 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
 
   _end: function() {
   },
+
+  addTempMessage: function(msg, time) {
+    time = typeof time !== "undefined" ? time : 1000;
+    var text = new fabric.Text(msg, {
+      fontFamily: "Comic Sans",
+      fontSize: 50,
+      fontWeight: "bold",
+      fill: "#fff",
+      strokeStyle: '#000',
+      strokeWidth: 5,
+      opacity: 0,
+      textShadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
+    });
+    this.add(text);
+    canvas.renderAll();
+    var that = this;
+    text.animate("opacity", 1, {
+      duration: time/2,
+      onChange: canvas.renderAll.bind(canvas),
+      onComplete: function() {
+        text.animate("opacity", 0, {
+          duration: time/2,
+          onChange: canvas.renderAll.bind(canvas),
+          onComplete: function() {
+            that.remove(text);
+            canvas.renderAll();
+          },
+        });
+      },
+    });
+  },
 });
+
 
 var Card = fabric.util.createClass(fabric.Group, {
   SPADES: "♠", // "&#9824;"
