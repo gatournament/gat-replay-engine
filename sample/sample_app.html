@@ -50,7 +50,7 @@
         {"name":"end_game", "args":{"winner":"p1", "loser":"p2"}}]';
         commands = JSON.parse(commands);
         var replay = new GATReplay({ commands: commands });
-        var replay = new Truco({ commands: commands });
+        // var replay = new Truco({ commands: commands });
         canvas.add(replay);
         replay.center();
         replay.play();

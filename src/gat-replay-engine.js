@@ -13,9 +13,7 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
     options || (options = { });
     this.callSuper("initialize", options.panels || [], options);
     this.commands = options.commands || [];
-    this.players = {"p1": null, "p2": null};
-    // a = JSON.parse(a);
-    // a = JSON.stringify(a);
+    this.players = {"p1": new fabric.Group([], { top: -200 }), "p2": new fabric.Group([], { top: 200 })};
     this._timeBetweenCommands = 1000; // in ms
     this._currentCommand = 0;
     this._execution = null;
