@@ -288,7 +288,7 @@ var Deck = fabric.util.createClass(fabric.Group, {
 
   removeAll: function() {
     var cards = this.getCards();
-    for (var i in cards) {
+    for (var i = cards.length - 1; i >= 0; i--) {
       this.removeCard(cards[i]);
     }
     canvas.renderAll();
