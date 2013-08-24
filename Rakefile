@@ -49,6 +49,7 @@ end
 
 task :upload => [:minify] do
   bucket = "replay-engine"
-  upload_to_s3(js.map { |f| "./min/#{f}.min.js" }, bucket)
-  upload_to_s3(["libs/fabric.min.js"], bucket)
+  files = js.map { |f| "./min/#{f}.min.js" }
+  files.push("libs/fabric.min.js")
+  upload_to_s3(files, bucket)
 end
