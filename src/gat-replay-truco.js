@@ -1,32 +1,44 @@
 var Truco = fabric.util.createClass(GATReplay, {
-  type: "truco",
+  type: "Truco",
 
-  initialize: function(options) {
-    var card_height = 120; // TODO create Card class variable
-    var offset = 20;
-    var p1 = new Deck({ top: 0 });
-    var p2 = new Deck({ top: 2 * (card_height + offset)});
-    this.table = new Deck({ width: 200, height: 200, top: (card_height + offset), backgroundColor: "#ddd" });
-    this.centerCard = new Deck({ top: 1*(card_height+offset), left: -200});
-    options.panels = [p1, p2, this.table, this.centerCard];
-    this.callSuper('initialize', options);
-    this.players = {"p1": p1 , "p2": p2 };
+  initialize: function(players, commands, options) {
+    this.callSuper('initialize', players, commands, options);
+    this.table = new Deck({ width: 200, height: 200, fill: "#ddd" });
+    this.centerCard = new Deck({ left: -180 });
+    this.add(this.table);
+    this.add(this.centerCard);
+  },
+
+  _playerComponent: function(player) {
+    var p = Object.keys(this.players).length;
+    switch(p) {
+      case 0:
+        return new Deck({ top: -175 });
+      case 1:
+        return new Deck({ top: 175 });
+      case 2:
+        return new Deck({ left: -400 });
+      case 3:
+        return new Deck({ left: 220 });
+      default:
+        return new Deck({ });
+    }
   },
 
   _applyCustomCommand: function(command) {
     var player = this.players[command.player];
     switch(command.name) {
-        case "upcard":
+        case "Upcard":
             var card = command.args.card;
             this._upcard(player, card.suit, card.symbol);
             break;
-        case "truco":
+        case "Truco":
             this._addPlayerMessage("Truco!", player.left, player.top);
             break;
-        case "accept":
+        case "Accept":
             this._addPlayerMessage("Truco accepted!", player.left, player.top);
             break;
-        case "reject":
+        case "Reject":
             this._addPlayerMessage("I do not accept the Truco!", player.left, player.top);
             break;
     }

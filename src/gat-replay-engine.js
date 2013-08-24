@@ -7,19 +7,41 @@ if (!String.prototype.trim) {
 
 
 var GATReplay = fabric.util.createClass(fabric.Group, {
-  type: "gatreplay",
+  type: "Replay",
 
-  initialize: function(options) {
-    options || (options = { });
-    this.callSuper("initialize", options.panels || [], options);
-    this.commands = options.commands || [];
-    this.players = {"p1": new fabric.Group([], { top: -200 }), "p2": new fabric.Group([], { top: 200 })};
+  initialize: function(players, commands, options) {
+    options || (options = { width: canvas.width, height: canvas.height });
+    this.callSuper("initialize", [], options);
+    players = players || [];
+    this.commands = commands || [];
+    this.players = {}
+    for (var i in players) {
+      var component = this._playerComponent(players[i]);
+      this.players[players[i]] = component;
+      this.addWithUpdate(component);
+    }
     this._timeBetweenCommands = 1000; // in ms
     this._currentCommand = 0;
     this._execution = null;
   },
 
-  nextCommand: function() {
+  _playerComponent: function(player) {
+    var p = Object.keys(this.players).length;
+    switch(p) {
+      case 0:
+        return new fabric.Group([], { top: -200 });
+      case 1:
+        return new fabric.Group([], { top: 200 });
+      case 2:
+        return new fabric.Group([], { left: -200 });
+      case 3:
+        return new fabric.Group([], { left: 200 });
+      default:
+        return new fabric.Group([], { });
+    }
+  },
+
+  _nextCommand: function() {
     if (this.commands != undefined && this.commands != null && this._currentCommand < this.commands.length) {
       return this.commands[this._currentCommand];
     } else {
@@ -31,7 +53,7 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
     if (this._execution != null) return;
     var that = this;
     function processCommand() {
-        var command = that.nextCommand();
+        var command = that._nextCommand();
         if (command != null) {
           that._applyCommand(command);
           that._currentCommand += 1;
@@ -66,23 +88,29 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
 
   _applyCommand: function(command) {
     // console.debug(command);
-    console.debug(command.name);
-    console.debug(command.args);
+    args = "";
+    if (command.args)
+      args = JSON.stringify(command.args);
+    var player = "";
+    if (command.player) {
+      player = command.player + ": ";
+    }
+    console.debug(player + command.name + "(" + args + ")");
     switch(command.name) {
-      case "start_game":
+      case "StartGame":
         this._startGame(command);
         break;
-      case "start_round":
+      case "StartRound":
         this._startRound(command);
         break;
-      case "end_round":
+      case "EndRound":
         this._endRound(command);
         break;
-      case "end_game":
+      case "EndGame":
         this._endGame(command);
         break;
       default:
-        if (this.type === "gatreplay") {
+        if (this.type === "Replay") {
           var player = this.players[command.player];
           if (player) {
             this._addPlayerMessage(command.name, player.left, player.top);
@@ -94,8 +122,6 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
   },
 
   _applyCustomCommand: function(command) {
-    var player1 = this.players["p1"];
-    var player2 = this.players["p2"];
   },
 
   _startGame: function(command) {
@@ -107,11 +133,12 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
   },
 
   _endRound: function(command) {
-
   },
 
   _endGame: function(command) {
-    this._addGameMessage('Winner: Loser: ');
+    var winner = command.winner || '';
+    var loser = command.loser || '';
+    this._addGameMessage("Winner: " + winner + " Loser: " + loser);
   },
 
   _addGameMessage: function(msg) {
@@ -120,7 +147,7 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
       fontSize: 50,
       fontWeight: "bold",
       fill: "#fff",
-      stroke: '#000',
+      stroke: '#fff',
       strokeWidth: 2,
       opacity: 0,
       textShadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
