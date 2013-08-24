@@ -27,18 +27,42 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
 
   _playerComponent: function(player) {
     var p = Object.keys(this.players).length;
+    var textOptions = {
+      fontFamily: "Comic Sans",
+      fontSize: 20,
+      fontStyle: "italic",
+      fill: "#fff",
+      textShadow: 'rgba(0,0,0,0.3) 1px 1px 1px',
+      padding: 10,
+    };
+    var playerName = new fabric.Text(player, textOptions);
+    var left = 0;
+    var top = 0;
     switch(p) {
       case 0:
-        return new fabric.Group([], { top: -200 });
+        left = -200;
+        var playerArea = new fabric.Group([], { top: -200 });
+        break;
       case 1:
-        return new fabric.Group([], { top: 200 });
+        left = -200;
+        var playerArea = new fabric.Group([], { top: 200 });
+        break;
       case 2:
-        return new fabric.Group([], { left: -200 });
+        top = -200;
+        var playerArea = new fabric.Group([], { left: -200 });
+        break;
       case 3:
-        return new fabric.Group([], { left: 200 });
+        top = -200;
+        var playerArea = new fabric.Group([], { left: 200 });
+        break;
       default:
-        return new fabric.Group([], { });
+        var playerArea = new fabric.Group([], { });
+        break;
     }
+    playerName.left = left;
+    playerName.top = top;
+    playerArea.add(playerName);
+    return playerArea;
   },
 
   _nextCommand: function() {
