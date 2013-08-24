@@ -57,11 +57,11 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
   },
 
   increaseSpeed: function() {
-    this._timeBetweenCommands = Math.min(this._timeBetweenCommands - 100, 100);
+    this._timeBetweenCommands = Math.max(this._timeBetweenCommands - 100, 100);
   },
 
   decreaseSpeed: function() {
-    this._timeBetweenCommands = Math.max(this._timeBetweenCommands + 100, 3000);
+    this._timeBetweenCommands = Math.min(this._timeBetweenCommands + 100, 3000);
   },
 
   _applyCommand: function(command) {
