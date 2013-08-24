@@ -56,7 +56,7 @@
             {"player":"p1","name":"Truco"}, \
             {"player":"p2","name":"Reject"}, \
             {"name":"EndRound", "args":{"winner":"p1", "loser":"p2"}}, \
-            {"name":"EndGame", "args":{"winner":"p1", "loser":"p2"}}]';
+            {"name":"EndGame", "args":{"summary":"Winner: p1 and Loser p2", "winner":"p1", "loser":"p2"}}]';
             commands = JSON.parse(commands);
             replay = new GATReplay(["p1", "p2"], commands, {});
             canvas.add(replay);
@@ -85,7 +85,7 @@
             {"player":"p1","name":"Truco"}, \
             {"player":"p2","name":"reject"}, \
             {"name":"EndRound", "args":{"winner":"p1", "loser":"p2"}}, \
-            {"name":"EndGame", "args":{"winner":"p1", "loser":"p2"}}]';
+            {"name":"EndGame", "args":{"summary":"Winner: p1 and Loser p2", "winner":"p1", "loser":"p2"}}]';
             commands = JSON.parse(commands);
             replay = new Truco(["p1", "p2"], commands, {});
             canvas.add(replay);

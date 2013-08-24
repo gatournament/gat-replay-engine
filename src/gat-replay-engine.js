@@ -165,13 +165,13 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
   },
 
   _endGame: function(command) {
-    this._addGameMessage(command.summary);
+    this._addGameMessage(command.args.summary);
   },
 
   _addGameMessage: function(msg) {
     var options = {
       fontFamily: "Comic Sans",
-      fontSize: 50,
+      fontSize: 30,
       fontWeight: "bold",
       fill: "#fff",
       stroke: '#fff',
