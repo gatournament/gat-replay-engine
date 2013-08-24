@@ -247,7 +247,7 @@ var Card = fabric.util.createClass(fabric.Group, {
   J: 11,
   Q: 12,
   K: 13,
-  SYMBOLS: { 1: "AS", 11: "J", 12: "Q", 13: "K"},
+  RANKS: { 1: "AS", 11: "J", 12: "Q", 13: "K"},
 
   initialize: function(options) {
     options || (options = { });
@@ -259,11 +259,11 @@ var Card = fabric.util.createClass(fabric.Group, {
       }
       suit = this.SUITS[suit];
     }
-    var symbol = options.symbol.toString();
+    var rank = options.rank.toString();
     this.suit = suit;
-    this.symbol = symbol;
-    if (symbol in this.SYMBOLS) {
-      symbol = this.SYMBOLS[symbol];
+    this.rank = rank;
+    if (rank in this.RANKS) {
+      rank = this.RANKS[rank];
     }
     var cardFont = "Comic Sans";
     var external = new fabric.Rect({ width: 80, height: 120, rx: 10, ry: 10, fill: "#fff", stroke: '#bbb', strokeWidth: 1 });
@@ -281,8 +281,8 @@ var Card = fabric.util.createClass(fabric.Group, {
 
     var topSuit = new fabric.Text(suit, { fill: textColor, top: -42, left: -32, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
     var bottomSuit = new fabric.Text(suit, { fill: textColor, top: 42, left: 32, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
-    var topValue = new fabric.Text(symbol, { fill: textColor, top: -52, left: -32, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
-    var bottomValue = new fabric.Text(symbol, { fill: textColor, top: 52, left: 32, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var topValue = new fabric.Text(rank, { fill: textColor, top: -52, left: -32, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
+    var bottomValue = new fabric.Text(rank, { fill: textColor, top: 52, left: 32, angle: 180, fontSize: 10, fontWeight: "bold", fontFamily: cardFont });
 
     this.callSuper("initialize", [external, internal, topSuit, topValue, bottomSuit, bottomValue], options);
   },
@@ -323,11 +323,11 @@ var Deck = fabric.util.createClass(fabric.Group, {
     return this.getObjects();
   },
 
-  getCard: function(suit, symbol) {
+  getCard: function(suit, rank) {
     var cards = this.getCards();
     for (var i in cards) {
       var card = cards[i];
-      if (card.suit == suit && card.symbol == symbol) {
+      if (card.suit == suit && card.rank == rank) {
         return card;
       }
     }
@@ -337,7 +337,7 @@ var Deck = fabric.util.createClass(fabric.Group, {
   addCards: function(cards) {
     for (var i in cards) {
       var card = cards[i];
-      this.addCard(new Card({suit: card.suit, symbol: card.symbol}));
+      this.addCard(new Card({suit: card.suit, rank: card.rank}));
     }
   },
 

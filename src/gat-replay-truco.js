@@ -30,7 +30,7 @@ var Truco = fabric.util.createClass(GATReplay, {
     switch(command.name) {
         case "Upcard":
             var card = command.args.card;
-            this._upcard(player, card.suit, card.symbol);
+            this._upcard(player, card.suit, card.rank);
             break;
         case "Truco":
             this._addPlayerMessage("Truco!", player.left, player.top);
@@ -62,8 +62,8 @@ var Truco = fabric.util.createClass(GATReplay, {
     this.table.removeAll();
   },
 
-  _upcard: function(player, suit, symbol) {
-    var card = player.getCard(suit, symbol);
+  _upcard: function(player, suit, rank) {
+    var card = player.getCard(suit, rank);
     player.moveCard(card, this.table);
   },
 

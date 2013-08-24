@@ -11,7 +11,7 @@
 
     <script src="../libs/fabric.min.js"></script>
     <script src="../src/gat-replay-engine.js"></script>
-    <script src="../src/gat-replay-Truco.js"></script>
+    <script src="../src/gat-replay-truco.js"></script>
 </head>
 
 <body>
@@ -38,21 +38,21 @@
             canvas.clear();
             var commands = '[  \
             {"name":"StartGame"}, \
-            {"name":"StartRound", "args":{"p1":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "p2":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "center_card":{"suit":2, "symbol":1}  }}, \
-            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+            {"name":"StartRound", "args":{"p1":[{"suit":1, "rank":1}, {"suit":1, "rank":1}, {"suit":1, "rank":1}], "p2":[{"suit":1, "rank":1}, {"suit":1, "rank":1}, {"suit":1, "rank":1}], "center_card":{"suit":2, "rank":1}  }}, \
+            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
             {"name":"EndRound", "args":{"winner":"p1", "loser":"p2"}}, \
-            {"name":"StartRound", "args":{"p1":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "p2":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "center_card":{"suit":2, "symbol":1} }}, \
+            {"name":"StartRound", "args":{"p1":[{"suit":1, "rank":1}, {"suit":1, "rank":1}, {"suit":1, "rank":1}], "p2":[{"suit":1, "rank":1}, {"suit":1, "rank":1}, {"suit":1, "rank":1}], "center_card":{"suit":2, "rank":1} }}, \
             {"player":"p1","name":"Truco"}, \
             {"player":"p2","name":"Accept"}, \
-            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
             {"player":"p2","name":"Truco"}, \
             {"player":"p1","name":"Accept"}, \
-            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
             {"player":"p1","name":"Truco"}, \
             {"player":"p2","name":"Reject"}, \
             {"name":"EndRound", "args":{"winner":"p1", "loser":"p2"}}, \
@@ -67,21 +67,21 @@
             canvas.clear();
             var commands = '[  \
             {"name":"StartGame"}, \
-            {"name":"StartRound", "args":{"p1":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "p2":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "center_card":{"suit":2, "symbol":1}  }}, \
-            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
-            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+            {"name":"StartRound", "args":{"p1":[{"suit":1, "rank":1}, {"suit":1, "rank":1}, {"suit":1, "rank":1}], "p2":[{"suit":1, "rank":1}, {"suit":1, "rank":1}, {"suit":1, "rank":1}], "center_card":{"suit":2, "rank":1}  }}, \
+            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
+            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
             {"name":"EndRound", "args":{"winner":"p1", "loser":"p2"}}, \
-            {"name":"StartRound", "args":{"p1":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "p2":[{"suit":1, "symbol":1}, {"suit":1, "symbol":1}, {"suit":1, "symbol":1}], "center_card":{"suit":2, "symbol":1} }}, \
+            {"name":"StartRound", "args":{"p1":[{"suit":1, "rank":1}, {"suit":1, "rank":1}, {"suit":1, "rank":1}], "p2":[{"suit":1, "rank":1}, {"suit":1, "rank":1}, {"suit":1, "rank":1}], "center_card":{"suit":2, "rank":1} }}, \
             {"player":"p1","name":"Truco"}, \
             {"player":"p2","name":"Accept"}, \
-            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+            {"player":"p1","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
             {"player":"p2","name":"Truco"}, \
             {"player":"p1","name":"Accept"}, \
-            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "symbol":1}}}, \
+            {"player":"p2","name":"Upcard", "args":{"card":{"suit":1, "rank":1}}}, \
             {"player":"p1","name":"Truco"}, \
             {"player":"p2","name":"reject"}, \
             {"name":"EndRound", "args":{"winner":"p1", "loser":"p2"}}, \
