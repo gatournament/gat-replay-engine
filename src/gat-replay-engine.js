@@ -262,9 +262,23 @@ var Card = fabric.util.createClass(fabric.Group, {
 
 
 var Deck = fabric.util.createClass(fabric.Group, {
+  type: "Deck",
+
   initialize: function(options) {
     options || (options = { });
     this.callSuper("initialize", [], options);
+    if (options.text) {
+      var textOptions = {
+        left: -100,
+        fontFamily: "Comic Sans",
+        fontSize: 20,
+        fontStyle: "italic",
+        fill: "#fff",
+        textShadow: 'rgba(0,0,0,0.3) 1px 1px 1px',
+        padding: 10,
+      };
+      this.add(new fabric.Text(options.text, textOptions));
+    }
     this.cardOffset = options.cardOffset || 18;
     var cards = options.cards || [];
     for (var i in cards) {
@@ -314,7 +328,9 @@ var Deck = fabric.util.createClass(fabric.Group, {
   removeAll: function() {
     var cards = this.getCards();
     for (var i = cards.length - 1; i >= 0; i--) {
-      this.removeCard(cards[i]);
+      if (cards[i].type != "text") {
+        this.removeCard(cards[i]);
+      }
     }
     canvas.renderAll();
   },

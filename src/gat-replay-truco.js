@@ -13,13 +13,13 @@ var Truco = fabric.util.createClass(GATReplay, {
     var p = Object.keys(this.players).length;
     switch(p) {
       case 0:
-        return new Deck({ top: -175 });
+        return new Deck({ top: -175, text: player });
       case 1:
-        return new Deck({ top: 175 });
+        return new Deck({ top: 175, text: player });
       case 2:
-        return new Deck({ left: -400 });
+        return new Deck({ left: -400, text: player });
       case 3:
-        return new Deck({ left: 220 });
+        return new Deck({ left: 220, text: player });
       default:
         return new Deck({ });
     }
