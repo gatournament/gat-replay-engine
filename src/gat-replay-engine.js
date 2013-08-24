@@ -25,6 +25,10 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
     this._execution = null;
   },
 
+  getPlayers: function() {
+    return Object.keys(this.players);
+  },
+
   _playerComponent: function(player) {
     var p = Object.keys(this.players).length;
     var textOptions = {

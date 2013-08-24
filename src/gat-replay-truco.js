@@ -46,10 +46,11 @@ var Truco = fabric.util.createClass(GATReplay, {
 
   _startRound: function(command) {
     this.callSuper('_startRound', command);
-    var player1 = this.players["p1"];
-    var player2 = this.players["p2"];
-    player1.addCards(command.args.p1);
-    player2.addCards(command.args.p2);
+    players = this.getPlayers();
+    for (var i in players) {
+      var player = players[i];
+      this.players[player].addCards(command.args[player]);
+    }
     this.centerCard.addCards([command.args.center_card]);
   },
 
