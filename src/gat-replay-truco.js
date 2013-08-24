@@ -35,10 +35,10 @@ var Truco = fabric.util.createClass(GATReplay, {
         case "Truco":
             this._addPlayerMessage("Truco!", player.left, player.top);
             break;
-        case "Accept":
+        case "AcceptTruco":
             this._addPlayerMessage("Truco accepted!", player.left, player.top);
             break;
-        case "Reject":
+        case "RejectTruco":
             this._addPlayerMessage("I do not accept the Truco!", player.left, player.top);
             break;
     }

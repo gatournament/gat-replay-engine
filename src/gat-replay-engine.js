@@ -104,6 +104,7 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
   stop: function() {
     this.pause();
     this._currentCommand = 0;
+    canvas.clear();
   },
 
   increaseSpeed: function() {
@@ -164,9 +165,7 @@ var GATReplay = fabric.util.createClass(fabric.Group, {
   },
 
   _endGame: function(command) {
-    var winner = command.winner || '';
-    var loser = command.loser || '';
-    this._addGameMessage("Winner: " + winner + " Loser: " + loser);
+    this._addGameMessage(command.summary);
   },
 
   _addGameMessage: function(msg) {
@@ -252,6 +251,9 @@ var Card = fabric.util.createClass(fabric.Group, {
   initialize: function(options) {
     options || (options = { });
     var suit = options.suit.toString();
+    var rank = options.rank.toString();
+    this.suit = suit;
+    this.rank = rank;
     var textColor = "#000";
     if (suit in this.SUITS) {
       if (parseInt(suit) == 2 || parseInt(suit) == 2) {
@@ -259,9 +261,6 @@ var Card = fabric.util.createClass(fabric.Group, {
       }
       suit = this.SUITS[suit];
     }
-    var rank = options.rank.toString();
-    this.suit = suit;
-    this.rank = rank;
     if (rank in this.RANKS) {
       rank = this.RANKS[rank];
     }
